@@ -7,6 +7,7 @@
   const introVideo = document.querySelector('#intro-video');
   const playIntroButton = document.querySelector('#play-intro');
   const catalog = document.querySelector('#catalog');
+  const viewCounter = document.querySelector('#view-counter');
   const reader = document.querySelector('#reader');
   const book = document.querySelector('#book');
   const bookScene = document.querySelector('#book-scene');
@@ -60,10 +61,26 @@
       return;
     }
     introVideo.pause();
+    loadViewCounter();
     if (moveFocus) {
       const target = document.querySelector(reading ? '#back-to-catalog' : '#enter-reader');
       target.focus({ preventScroll: true });
     }
+  }
+
+  function loadViewCounter() {
+    if (window.location.hostname !== 'hankko60405-ship-it.github.io' || viewCounter.hasAttribute('src')) return;
+    const badge = new URL('https://hits.sh/hankko60405-ship-it.github.io/shiguangchengshi.svg');
+    badge.search = new URLSearchParams({
+      label: '累計觀看',
+      style: 'flat-square',
+      labelColor: '000000',
+      color: '000000'
+    });
+    viewCounter.addEventListener('load', () => {
+      viewCounter.parentElement.hidden = false;
+    }, { once: true });
+    viewCounter.src = badge.href;
   }
 
   function playIntro() {
