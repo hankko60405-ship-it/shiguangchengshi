@@ -61,7 +61,7 @@
     }
     introVideo.pause();
     if (moveFocus) {
-      const target = document.querySelector(reading ? '.reader-kicker' : '#enter-reader');
+      const target = document.querySelector(reading ? '#back-to-catalog' : '#enter-reader');
       target.focus({ preventScroll: true });
     }
   }
@@ -85,10 +85,9 @@
     updateRoute(true);
   }
 
-  introVideo.addEventListener('ended', showCatalog);
   introVideo.addEventListener('error', showCatalog);
   playIntroButton.addEventListener('click', playIntro);
-  document.querySelector('#skip-intro').addEventListener('click', showCatalog);
+  document.querySelector('#dismiss-intro').addEventListener('click', showCatalog);
 
   function visibleLabel() {
     if (isMobile()) return `${mobilePage} / ${TOTAL_PAGES}`;

@@ -6,7 +6,7 @@
   <meta name="theme-color" content="#000000">
   <meta name="description" content="致理科技大學管樂社《拾光成詩》音樂會數位節目冊">
   <title>拾光成詩｜數位音樂會刊</title>
-  <link rel="stylesheet" href="styles.css?v=4">
+  <link rel="stylesheet" href="styles.css?v=5">
 </head>
 <body>
   <main>
@@ -14,10 +14,8 @@
       <video id="intro-video" src="assets/media/intro-poster.mp4"
         poster="assets/media/intro-poster.jpg" muted playsinline preload="none"
         disablepictureinpicture disableremoteplayback aria-label="拾光成詩動態海報"></video>
-      <div class="poster-actions">
-        <button class="quiet-button" id="play-intro" type="button" hidden>播放海報</button>
-        <button class="quiet-button" id="skip-intro" type="button" aria-label="略過影片，進入節目冊清單">略過</button>
-      </div>
+      <button class="poster-dismiss" id="dismiss-intro" type="button" aria-label="關閉海報，進入節目冊清單"></button>
+      <button class="quiet-button poster-play" id="play-intro" type="button" hidden>播放海報</button>
     </section>
 
     <section class="catalog" id="catalog" aria-labelledby="catalog-title" hidden>
@@ -26,7 +24,7 @@
           <img src="assets/media/chihlee-wind-band.svg" width="32" height="24" alt="">
           <span>致理科技大學管樂社</span>
         </p>
-        <button class="quiet-button" data-open-about type="button">關於</button>
+        <button class="quiet-button" data-open-about type="button">關於我們</button>
       </header>
       <h1 id="catalog-title">節目冊清單</h1>
       <ul class="program-list">
@@ -46,17 +44,15 @@
 
     <section class="reader-app" id="reader" aria-label="拾光成詩電子節目冊" hidden>
       <header class="reader-header">
-        <a class="wordmark" href="#catalog">返回清單</a>
+        <a class="wordmark" id="back-to-catalog" href="#catalog">返回清單</a>
         <div class="header-actions">
           <button class="quiet-button" id="open-thumbs" type="button">頁面總覽</button>
-          <button class="quiet-button" data-open-about type="button">關於</button>
+          <button class="quiet-button" data-open-about type="button">關於我們</button>
           <button class="quiet-button" id="toggle-fullscreen" type="button">全螢幕</button>
         </div>
       </header>
 
       <div class="reader-stage">
-        <p class="reader-kicker" tabindex="-1">拾光成詩 · 第 58 屆期末音樂會</p>
-
         <div class="desktop-reader" id="desktop-reader" aria-label="雙頁翻閱模式">
           <div class="book-scene" id="book-scene">
             <div class="book" id="book" data-current="0">
@@ -107,7 +103,7 @@
 
   <dialog class="panel-dialog about-dialog" id="about-dialog" aria-labelledby="about-title">
     <div class="dialog-head">
-      <h2 id="about-title">關於</h2>
+      <h2 id="about-title">關於我們</h2>
       <button class="close-button" data-close="about-dialog" type="button">關閉</button>
     </div>
     <nav class="social-links" aria-label="致理科技大學管樂社社群">
@@ -122,6 +118,6 @@
   </dialog>
 
   <script src="page-curl.js"></script>
-  <script src="app.js?v=4"></script>
+  <script src="app.js?v=5"></script>
 </body>
 </html>
