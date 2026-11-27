@@ -1,6 +1,10 @@
 (() => {
   const TOTAL_PAGES = 8;
   const SHEETS = 4;
+  const programs = new Map([
+    ['#reader', { title: '拾光成詩', directory: 'assets/pages', linkId: 'enter-reader' }],
+    ['#qingse-2025', { title: '青澀秋禾', directory: 'assets/qingse-2025', linkId: 'enter-qingse' }]
+  ]);
   const mobileQuery = window.matchMedia('(max-width: 760px)');
   const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
   const posterIntro = document.querySelector('#poster-intro');
@@ -18,22 +22,24 @@
   const prevButton = document.querySelector('#prev-page');
   const nextButton = document.querySelector('#next-page');
   const thumbsDialog = document.querySelector('#thumbs-dialog');
+  const thumbnailGrid = document.querySelector('#thumbnail-grid');
   const aboutDialog = document.querySelector('#about-dialog');
   const zoomDialog = document.querySelector('#zoom-dialog');
   const zoomImage = document.querySelector('#zoom-image');
   const pageImages = [...document.querySelectorAll('.page-face img')];
 
+  let activeProgram = programs.get('#reader');
   let desktopCursor = 0;
   let mobilePage = 1;
-  let isAnimating = false;
+  let desktopTurnTimer = 0;
   let touchStartX = 0;
 
-  const pageSrc = page => `assets/pages/page-${page}.png`;
+  const pageSrc = page => `${activeProgram.directory}/page-${page}.png`;
   const mobileCurl = createMobileCurl({
     surface: mobileWrap,
     canvas: document.querySelector('#mobile-curl'),
     isActive: isMobile,
-    isBlocked: () => isAnimating,
+    isBlocked: () => Boolean(desktopTurnTimer),
     getPage: () => mobilePage,
     setPage: setMobilePage,
     getImage: page => pageImages[page - 1],
@@ -47,8 +53,10 @@
   function updateRoute(moveFocus) {
     const route = window.location.hash;
     const introducing = route === '';
-    const reading = route === '#reader';
+    const program = programs.get(route);
+    const reading = Boolean(program);
     mobileCurl.cancel();
+    if (program && program !== activeProgram) selectProgram(program);
     posterIntro.hidden = !introducing;
     catalog.hidden = introducing || reading;
     reader.hidden = !reading;
@@ -63,9 +71,26 @@
     introVideo.pause();
     loadViewCounter();
     if (moveFocus) {
-      const target = document.querySelector(reading ? '#back-to-catalog' : '#enter-reader');
+      const target = document.getElementById(reading ? 'back-to-catalog' : activeProgram.linkId);
       target.focus({ preventScroll: true });
     }
+  }
+
+  function selectProgram(program) {
+    activeProgram = program;
+    window.clearTimeout(desktopTurnTimer);
+    desktopTurnTimer = 0;
+    desktopCursor = 0;
+    sheets.forEach(sheet => sheet.classList.remove('is-turning'));
+    reader.setAttribute('aria-label', `${program.title}電子節目冊`);
+    pageImages.forEach(image => {
+      image.src = pageSrc(image.dataset.page);
+    });
+    thumbnailGrid.querySelectorAll('img').forEach((image, index) => {
+      image.src = pageSrc(index + 1);
+    });
+    setMobilePage(1);
+    renderBook();
   }
 
   function loadViewCounter() {
@@ -139,17 +164,16 @@
   }
 
   function turnDesktop(direction) {
-    if (isAnimating) return;
+    if (desktopTurnTimer) return;
     const target = desktopCursor + (direction === 'next' ? 1 : -1);
     if (target < 0 || target > SHEETS) return;
-    isAnimating = true;
     const turningIndex = direction === 'next' ? desktopCursor : desktopCursor - 1;
     sheets[turningIndex]?.classList.add('is-turning');
     desktopCursor = target;
     renderBook();
-    window.setTimeout(() => {
+    desktopTurnTimer = window.setTimeout(() => {
       sheets[turningIndex]?.classList.remove('is-turning');
-      isAnimating = false;
+      desktopTurnTimer = 0;
     }, 920);
   }
 
@@ -211,7 +235,6 @@
     });
   });
 
-  const thumbnailGrid = document.querySelector('#thumbnail-grid');
   for (let page = 1; page <= TOTAL_PAGES; page += 1) {
     const button = document.createElement('button');
     button.type = 'button';
