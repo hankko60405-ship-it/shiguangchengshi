@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#000000">
+  <meta name="description" content="致理科技大學管樂社《拾光成詩》音樂會數位節目冊">
+  <title>拾光成詩｜數位音樂會刊</title>
+  <link rel="stylesheet" href="styles.css?v=3">
+</head>
+<body>
+  <main>
+    <section class="catalog" id="catalog" aria-labelledby="catalog-title">
+      <header class="catalog-header">
+        <p class="club-brand">
+          <img src="assets/media/chihlee-wind-band.svg" width="32" height="24" alt="">
+          <span>致理科技大學管樂社</span>
+        </p>
+        <button class="quiet-button" data-open-about type="button">關於</button>
+      </header>
+      <h1 id="catalog-title">節目冊清單</h1>
+      <ul class="program-list">
+        <li>
+          <a class="program-entry" id="enter-reader" href="#reader">
+            <img width="1092" height="1531" src="assets/pages/page-1.png" alt="">
+            <span class="program-details">
+              <span class="program-title">拾光成詩</span>
+              <span>第 58 屆期末音樂會</span>
+              <time datetime="2026-11-27">2026.11.27</time>
+            </span>
+            <span class="program-action">翻閱</span>
+          </a>
+        </li>
+      </ul>
+    </section>
+
+    <section class="reader-app" id="reader" aria-label="拾光成詩電子節目冊" hidden>
+      <header class="reader-header">
+        <a class="wordmark" href="#catalog">返回清單</a>
+        <div class="header-actions">
+          <button class="quiet-button" id="open-thumbs" type="button">頁面總覽</button>
+          <button class="quiet-button" data-open-about type="button">關於</button>
+          <button class="quiet-button" id="toggle-fullscreen" type="button">全螢幕</button>
+        </div>
+      </header>
+
+      <div class="reader-stage">
+        <p class="reader-kicker" tabindex="-1">拾光成詩 · 第 58 屆期末音樂會</p>
+
+        <div class="desktop-reader" id="desktop-reader" aria-label="雙頁翻閱模式">
+          <div class="book-scene" id="book-scene">
+            <div class="book" id="book" data-current="0">
+              <div class="book-gutter" aria-hidden="true"></div>
+              <div class="sheet" data-sheet="0">
+                <div class="page-face page-front"><img src="assets/pages/page-1.png" alt="節目冊第 1 頁，封面" data-page="1"></div>
+                <div class="page-face page-back"><img src="assets/pages/page-2.png" alt="節目冊第 2 頁" data-page="2"></div>
+              </div>
+              <div class="sheet" data-sheet="1">
+                <div class="page-face page-front"><img src="assets/pages/page-3.png" alt="節目冊第 3 頁" data-page="3"></div>
+                <div class="page-face page-back"><img src="assets/pages/page-4.png" alt="節目冊第 4 頁" data-page="4"></div>
+              </div>
+              <div class="sheet" data-sheet="2">
+                <div class="page-face page-front"><img src="assets/pages/page-5.png" alt="節目冊第 5 頁" data-page="5"></div>
+                <div class="page-face page-back"><img src="assets/pages/page-6.png" alt="節目冊第 6 頁" data-page="6"></div>
+              </div>
+              <div class="sheet" data-sheet="3">
+                <div class="page-face page-front"><img src="assets/pages/page-7.png" alt="節目冊第 7 頁" data-page="7"></div>
+                <div class="page-face page-back"><img src="assets/pages/page-8.png" alt="節目冊第 8 頁，封底" data-page="8"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="mobile-reader" id="mobile-reader" aria-label="單頁翻閱模式">
+          <button class="mobile-page-wrap" id="mobile-page-wrap" type="button" aria-label="放大第 1 頁">
+            <img id="mobile-page" src="assets/pages/page-1.png" alt="" draggable="false">
+            <canvas id="mobile-curl" aria-hidden="true"></canvas>
+          </button>
+        </div>
+
+        <nav class="reader-controls" aria-label="翻頁控制">
+          <button class="nav-button" id="prev-page" type="button">上一頁</button>
+          <span class="page-status" id="page-status" aria-live="polite">1 / 8</span>
+          <button class="nav-button" id="next-page" type="button">下一頁</button>
+        </nav>
+      </div>
+    </section>
+  </main>
+
+  <dialog class="panel-dialog thumbnails-dialog" id="thumbs-dialog" aria-labelledby="thumbs-title">
+    <div class="dialog-head">
+      <h2 id="thumbs-title">頁面總覽</h2>
+      <button class="close-button" data-close="thumbs-dialog" type="button">關閉</button>
+    </div>
+    <div class="thumbnail-grid" id="thumbnail-grid"></div>
+  </dialog>
+
+  <dialog class="panel-dialog about-dialog" id="about-dialog" aria-labelledby="about-title">
+    <div class="dialog-head">
+      <h2 id="about-title">關於</h2>
+      <button class="close-button" data-close="about-dialog" type="button">關閉</button>
+    </div>
+    <nav class="social-links" aria-label="致理科技大學管樂社社群">
+      <a href="https://www.instagram.com/clwb_56th/" target="_blank" rel="noopener noreferrer">Instagram</a>
+      <a href="https://www.facebook.com/chihleewindband" target="_blank" rel="noopener noreferrer">Facebook</a>
+    </nav>
+  </dialog>
+
+  <dialog class="zoom-dialog" id="zoom-dialog" aria-label="放大頁面">
+    <button class="zoom-close" data-close="zoom-dialog" type="button">關閉放大</button>
+    <img id="zoom-image" src="assets/pages/page-1.png" alt="">
+  </dialog>
+
+  <script src="page-curl.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
