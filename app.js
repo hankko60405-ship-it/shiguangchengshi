@@ -3,7 +3,8 @@
   const SHEETS = 4;
   const programs = new Map([
     ['#reader', { title: '拾光成詩', directory: 'assets/pages', linkId: 'enter-reader' }],
-    ['#qingse-2025', { title: '青澀秋禾', directory: 'assets/qingse-2025', linkId: 'enter-qingse' }]
+    ['#qingse-2025', { title: '青澀秋禾', directory: 'assets/qingse-2025', linkId: 'enter-qingse' }],
+    ['#sonata-2025', { title: '時光奏鳴', directory: 'assets/sonata-2025', linkId: 'enter-sonata', extension: 'webp' }]
   ]);
   const mobileQuery = window.matchMedia('(max-width: 760px)');
   const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
@@ -34,7 +35,7 @@
   let desktopTurnTimer = 0;
   let touchStartX = 0;
 
-  const pageSrc = page => `${activeProgram.directory}/page-${page}.png`;
+  const pageSrc = page => `${activeProgram.directory}/page-${page}.${activeProgram.extension ?? 'png'}`;
   const mobileCurl = createMobileCurl({
     surface: mobileWrap,
     canvas: document.querySelector('#mobile-curl'),
