@@ -6,11 +6,21 @@
   <meta name="theme-color" content="#000000">
   <meta name="description" content="致理科技大學管樂社《拾光成詩》音樂會數位節目冊">
   <title>拾光成詩｜數位音樂會刊</title>
-  <link rel="stylesheet" href="styles.css?v=3">
+  <link rel="stylesheet" href="styles.css?v=4">
 </head>
 <body>
   <main>
-    <section class="catalog" id="catalog" aria-labelledby="catalog-title">
+    <section class="poster-intro" id="poster-intro" aria-label="拾光成詩動態海報">
+      <video id="intro-video" src="assets/media/intro-poster.mp4"
+        poster="assets/media/intro-poster.jpg" muted playsinline preload="none"
+        disablepictureinpicture disableremoteplayback aria-label="拾光成詩動態海報"></video>
+      <div class="poster-actions">
+        <button class="quiet-button" id="play-intro" type="button" hidden>播放海報</button>
+        <button class="quiet-button" id="skip-intro" type="button" aria-label="略過影片，進入節目冊清單">略過</button>
+      </div>
+    </section>
+
+    <section class="catalog" id="catalog" aria-labelledby="catalog-title" hidden>
       <header class="catalog-header">
         <p class="club-brand">
           <img src="assets/media/chihlee-wind-band.svg" width="32" height="24" alt="">
@@ -112,6 +122,6 @@
   </dialog>
 
   <script src="page-curl.js"></script>
-  <script src="app.js"></script>
+  <script src="app.js?v=4"></script>
 </body>
 </html>

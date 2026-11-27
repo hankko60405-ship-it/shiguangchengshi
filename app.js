@@ -2,6 +2,10 @@
   const TOTAL_PAGES = 8;
   const SHEETS = 4;
   const mobileQuery = window.matchMedia('(max-width: 760px)');
+  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+  const posterIntro = document.querySelector('#poster-intro');
+  const introVideo = document.querySelector('#intro-video');
+  const playIntroButton = document.querySelector('#play-intro');
   const catalog = document.querySelector('#catalog');
   const reader = document.querySelector('#reader');
   const book = document.querySelector('#book');
@@ -40,15 +44,51 @@
   }
 
   function updateRoute(moveFocus) {
-    const reading = window.location.hash === '#reader';
+    const route = window.location.hash;
+    const introducing = route === '';
+    const reading = route === '#reader';
     mobileCurl.cancel();
-    catalog.hidden = reading;
+    posterIntro.hidden = !introducing;
+    catalog.hidden = introducing || reading;
     reader.hidden = !reading;
+    if (introducing) {
+      if (reducedMotion.matches) {
+        playIntroButton.hidden = false;
+      } else {
+        playIntro();
+      }
+      return;
+    }
+    introVideo.pause();
     if (moveFocus) {
       const target = document.querySelector(reading ? '.reader-kicker' : '#enter-reader');
       target.focus({ preventScroll: true });
     }
   }
+
+  function playIntro() {
+    introVideo.muted = true;
+    playIntroButton.hidden = true;
+    introVideo.play().catch(() => {
+      if (posterIntro.hidden) return;
+      if (introVideo.error) {
+        showCatalog();
+      } else {
+        playIntroButton.hidden = false;
+      }
+    });
+  }
+
+  function showCatalog() {
+    if (posterIntro.hidden) return;
+    window.history.replaceState(window.history.state, '', '#catalog');
+    updateRoute(true);
+  }
+
+  introVideo.addEventListener('ended', showCatalog);
+  introVideo.addEventListener('error', showCatalog);
+  playIntroButton.addEventListener('click', playIntro);
+  document.querySelector('#skip-intro').addEventListener('click', showCatalog);
 
   function visibleLabel() {
     if (isMobile()) return `${mobilePage} / ${TOTAL_PAGES}`;
