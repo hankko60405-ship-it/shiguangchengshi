@@ -49,6 +49,8 @@ button:focus-visible, a:focus-visible { outline: 2px solid #f6f1d5; outline-offs
 .club-brand { display: flex; align-items: center; gap: 10px; margin: 0; color: var(--ink); font: 500 .875rem/1.5 "PingFang TC", sans-serif; letter-spacing: .10em; }
 .club-brand img { display: block; flex: none; }
 .catalog h1 { margin: clamp(36px, 9vw, 80px) 0 22px; font-size: clamp(1.85rem, 6vw, 3rem); font-weight: 400; letter-spacing: .10em; }
+.program-archive { margin-top: clamp(28px, 6vw, 52px); }
+.program-archive h2 { margin: 0 0 14px; font-size: clamp(1.2rem, 4vw, 1.5rem); font-weight: 400; letter-spacing: .10em; }
 .program-list { margin: 0; padding: 0; list-style: none; }
 .program-entry { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; gap: clamp(12px, 4vw, 24px); align-items: center; padding: 16px 4px; color: var(--ink); text-decoration: none; border-block: 1px solid var(--line); }
 .program-list li + li .program-entry { border-top: 0; }
